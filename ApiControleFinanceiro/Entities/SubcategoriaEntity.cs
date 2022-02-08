@@ -1,9 +1,21 @@
-﻿namespace ApiControleFinanceiro.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ApiControleFinanceiro.Entities
 {
+    [Table("subcategoria")]
     public class SubcategoriaEntity
-    {        
+    {
+        [Key()]
+        [Column("id")]
         public int Id { get; set; }
+
+        [Column("nome")]
+        [StringLength(100)]
+        [MinLength(5)]
         public string Nome { get; set; }
-        public CategoriaEntity Categoria { get; set; }
+        
+        [ForeignKey(nameof(Id))]
+        public virtual CategoriaEntity CategoriaEntity { get; set; }
     }
 }

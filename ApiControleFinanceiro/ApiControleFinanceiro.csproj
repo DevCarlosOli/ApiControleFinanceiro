@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20220208193911_Iniciation.cs" />
     <Compile Remove="Migrations\20220208193911_Iniciation.Designer.cs" />
+    <Compile Remove="Migrations\20220208194929_ApiControleFinanceiro.cs" />
+    <Compile Remove="Migrations\20220208194929_ApiControleFinanceiro.Designer.cs" />
+    <Compile Remove="Migrations\20220208212729_ApiControleFinanceiro.cs" />
+    <Compile Remove="Migrations\20220208212729_ApiControleFinanceiro.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 

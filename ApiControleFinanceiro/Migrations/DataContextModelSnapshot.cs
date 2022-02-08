@@ -23,75 +23,75 @@ namespace ApiControleFinanceiro.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("idcategoria")
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Nome")
+                        .HasColumnName("nome")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias");
+                    b.ToTable("categoria");
                 });
 
             modelBuilder.Entity("ApiControleFinanceiro.Entities.LancamentoEntity", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Comentario")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int?>("SubcategoriaId")
+                        .HasColumnName("id")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Comentario")
+                        .HasColumnName("comentario")
+                        .HasColumnType("character varying(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnName("data")
+                        .HasColumnType("date");
+
                     b.Property<double>("Valor")
+                        .HasColumnName("valor")
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubcategoriaId");
-
-                    b.ToTable("Lancamentos");
+                    b.ToTable("lancamento");
                 });
 
             modelBuilder.Entity("ApiControleFinanceiro.Entities.SubcategoriaEntity", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("CategoriaId")
+                        .HasColumnName("id")
                         .HasColumnType("integer");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("text");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoriaId");
-
-                    b.ToTable("Subcategorias");
+                    b.ToTable("subcategoria");
                 });
 
             modelBuilder.Entity("ApiControleFinanceiro.Entities.LancamentoEntity", b =>
                 {
-                    b.HasOne("ApiControleFinanceiro.Entities.SubcategoriaEntity", "Subcategoria")
+                    b.HasOne("ApiControleFinanceiro.Entities.SubcategoriaEntity", "SubcategoriaEntity")
                         .WithMany()
-                        .HasForeignKey("SubcategoriaId");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ApiControleFinanceiro.Entities.SubcategoriaEntity", b =>
                 {
-                    b.HasOne("ApiControleFinanceiro.Entities.CategoriaEntity", "Categoria")
+                    b.HasOne("ApiControleFinanceiro.Entities.CategoriaEntity", "CategoriaEntity")
                         .WithMany()
-                        .HasForeignKey("CategoriaId");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
