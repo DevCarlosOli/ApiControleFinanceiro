@@ -1,4 +1,6 @@
 using ApiControleFinanceiro.Context;
+using ApiControleFinanceiro.Repositories;
+using ApiControleFinanceiro.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +44,8 @@ namespace ApiControleFinanceiro
             });
 
             services.AddDbContext<DataContext>(option => option.UseNpgsql(Configuration.GetConnectionString("ApiConnection")));
+
+            services.AddScoped<ICategoriaRepository, CategoriaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
