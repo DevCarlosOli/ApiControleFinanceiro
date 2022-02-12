@@ -7,8 +7,8 @@ namespace ApiControleFinanceiro.Entities
     public class SubcategoriaEntity
     {
         [Key()]
-        [Column("id")]
-        public int Id { get; set; }
+        [Column("idsubcategoria")]
+        public long Id { get; set; }
 
         [Column("nome")]
         [StringLength(100)]

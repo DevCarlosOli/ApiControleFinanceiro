@@ -8,8 +8,8 @@ namespace ApiControleFinanceiro.Entities
     public class LancamentoEntity
     {
         [Key()]
-        [Column("id")]
-        public int Id { get; set; }
+        [Column("idlancamento")]
+        public long Id { get; set; }
 
         [Column("valor")]
         public double Valor { get; set; }

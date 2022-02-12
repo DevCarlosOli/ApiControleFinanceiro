@@ -24,9 +24,9 @@ namespace ApiControleFinanceiro.Service
             return categoria;
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(string nome)
         {
-            var categoriaDelete = await _dataContext.Categorias.FindAsync(id);
+            var categoriaDelete = await _dataContext.Categorias.FindAsync(nome);
             _dataContext.Categorias.Remove(categoriaDelete);
             await _dataContext.SaveChangesAsync();
         }
@@ -36,9 +36,9 @@ namespace ApiControleFinanceiro.Service
             return await _dataContext.Categorias.ToListAsync();
         }
 
-        public async Task<CategoriaEntity> Get(int id)
+        public async Task<CategoriaEntity> Get(string nome)
         {
-            return await _dataContext.Categorias.FindAsync(id);
+            return await _dataContext.Categorias.FindAsync(nome);
         }
 
         public async Task Update(CategoriaEntity categoria)

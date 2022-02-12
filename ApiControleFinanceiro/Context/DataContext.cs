@@ -25,5 +25,11 @@ namespace ApiControleFinanceiro.Context
 
             optionsBuilder.UseNpgsql(configuration.GetConnectionString("ApiConnection"));
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<CategoriaEntity>().Property(c => c.Id).UseIdentityAlwaysColumn();
+            builder.Entity<CategoriaEntity>().HasIndex(c => c.Nome).IsUnique();
+        }
     }
 }

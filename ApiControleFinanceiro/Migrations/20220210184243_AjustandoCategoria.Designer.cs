@@ -3,15 +3,17 @@ using System;
 using ApiControleFinanceiro.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ApiControleFinanceiro.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220210184243_AjustandoCategoria")]
+    partial class AjustandoCategoria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,11 +23,11 @@ namespace ApiControleFinanceiro.Migrations
 
             modelBuilder.Entity("ApiControleFinanceiro.Entities.CategoriaEntity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("idcategoria")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Nome")
                         .HasColumnName("nome")
@@ -41,9 +43,9 @@ namespace ApiControleFinanceiro.Migrations
 
             modelBuilder.Entity("ApiControleFinanceiro.Entities.LancamentoEntity", b =>
                 {
-                    b.Property<long>("Id")
-                        .HasColumnName("idlancamento")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Id")
+                        .HasColumnName("id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Comentario")
                         .HasColumnName("comentario")
@@ -65,9 +67,9 @@ namespace ApiControleFinanceiro.Migrations
 
             modelBuilder.Entity("ApiControleFinanceiro.Entities.SubcategoriaEntity", b =>
                 {
-                    b.Property<long>("Id")
-                        .HasColumnName("idsubcategoria")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Id")
+                        .HasColumnName("id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nome")
                         .HasColumnName("nome")

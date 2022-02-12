@@ -7,8 +7,9 @@ namespace ApiControleFinanceiro.Entities
     public class CategoriaEntity
     {
         [Key()]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("idcategoria")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Column("nome")]
         public string Nome { get; set; }

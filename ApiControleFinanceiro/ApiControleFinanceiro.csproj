@@ -11,6 +11,14 @@
     <Compile Remove="Migrations\20220208194929_ApiControleFinanceiro.Designer.cs" />
     <Compile Remove="Migrations\20220208212729_ApiControleFinanceiro.cs" />
     <Compile Remove="Migrations\20220208212729_ApiControleFinanceiro.Designer.cs" />
+    <Compile Remove="Migrations\20220210180705_AjustandoCategoria.cs" />
+    <Compile Remove="Migrations\20220210180705_AjustandoCategoria.Designer.cs" />
+    <Compile Remove="Migrations\20220210191501_AjustandoCategoria02.cs" />
+    <Compile Remove="Migrations\20220210191501_AjustandoCategoria02.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Properties\launchSettings.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,9 +31,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.18" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
+
+    <PropertyGroup>
+	    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	    <NoWarn>$(NoWarn);1591</NoWarn>
+    </PropertyGroup>
 
 
 </Project>

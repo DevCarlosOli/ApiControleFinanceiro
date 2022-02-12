@@ -8,12 +8,12 @@ namespace ApiControleFinanceiro.Repositories
     {
         Task<IEnumerable<CategoriaEntity>> Get();
 
-        Task<CategoriaEntity> Get(int id);
+        Task<CategoriaEntity> Get(string nome);
 
         Task<CategoriaEntity> Create(CategoriaEntity categoria);
 
         Task Update(CategoriaEntity categoria);
 
-        Task Delete(int id);
+        Task Delete(string nome);
     }
 }

@@ -1,3 +1,4 @@
+using ApiControleFinanceiro.ApiControleFinanceiro.Domain.Middlewares;
 using ApiControleFinanceiro.Context;
 using ApiControleFinanceiro.Repositories;
 using ApiControleFinanceiro.Service;
@@ -9,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace ApiControleFinanceiro
 {
@@ -40,7 +43,12 @@ namespace ApiControleFinanceiro
                             Url = new Uri("https://github.com/DevCarlosOli")
                         }
                     });
-                
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+
             });
 
             services.AddDbContext<DataContext>(option => option.UseNpgsql(Configuration.GetConnectionString("ApiConnection")));
@@ -61,6 +69,8 @@ namespace ApiControleFinanceiro
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware(typeof(ErrorMiddleware));
 
             app.UseEndpoints(endpoints =>
             {
