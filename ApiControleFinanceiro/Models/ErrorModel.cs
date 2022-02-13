@@ -7,18 +7,15 @@ namespace ApiControleFinanceiro.ApiControleFinanceiro.Domain.Models
     {
         public ErrorModel()
         {
-            TraceId = Guid.NewGuid().ToString();
             Errors = new List<ErrorDetails>();
         }
 
         public ErrorModel(string code, string message)
         {
-            TraceId = Guid.NewGuid().ToString();
             Errors = new List<ErrorDetails>();
             AddError(code, message);
         }
 
-        public string TraceId { get; private set; }
         public List<ErrorDetails> Errors { get; private set; }
 
         public class ErrorDetails

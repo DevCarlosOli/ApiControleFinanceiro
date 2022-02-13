@@ -54,6 +54,8 @@ namespace ApiControleFinanceiro
             services.AddDbContext<DataContext>(option => option.UseNpgsql(Configuration.GetConnectionString("ApiConnection")));
 
             services.AddScoped<ICategoriaRepository, CategoriaService>();
+            services.AddScoped<ISubcategoriaRepository, SubcategoriaService>();
+            services.AddScoped<ILancamentoRepository, LancamentoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +84,7 @@ namespace ApiControleFinanceiro
             app.UseSwaggerUI(c => 
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                c.RoutePrefix = string.Empty;
             });
         }
     }

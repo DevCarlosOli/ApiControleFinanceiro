@@ -32,19 +32,17 @@ namespace ApiControleFinanceiro.ApiControleFinanceiro.Domain.Middlewares
 
         private Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            //TODO: Gravar log de erro com o trace id
+            //TODO: Gravar log de erro 500.
 
             ErrorModel errorModel;
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ||
                 Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Qa")
             {
-                errorModel = new ErrorModel(HttpStatusCode.InternalServerError.ToString(), $"{ex.Message} {ex?.InnerException?.Message}");
+                errorModel = new ErrorModel("erro_validacao", "O 'ID' da categoria não é editável/filtravel, precisa selecionar por 'nome' da categoria!");
             }
             else
             {
-                //Homologação, Pre Prod, Produção...
-
                 errorModel = new ErrorModel(HttpStatusCode.InternalServerError.ToString(), "An internal server error has occurred.");
             }
 
