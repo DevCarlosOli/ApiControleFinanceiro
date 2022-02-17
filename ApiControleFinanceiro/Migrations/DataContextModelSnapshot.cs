@@ -21,7 +21,7 @@ namespace ApiControleFinanceiro.Migrations
 
             modelBuilder.Entity("ApiControleFinanceiro.Entities.CategoriaEntity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("IdCategoria")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("idcategoria")
                         .HasColumnType("bigint")
@@ -31,7 +31,7 @@ namespace ApiControleFinanceiro.Migrations
                         .HasColumnName("nome")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdCategoria");
 
                     b.HasIndex("Nome")
                         .IsUnique();
@@ -41,9 +41,11 @@ namespace ApiControleFinanceiro.Migrations
 
             modelBuilder.Entity("ApiControleFinanceiro.Entities.LancamentoEntity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("IdLancamento")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("idlancamento")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Comentario")
                         .HasColumnName("comentario")
@@ -54,19 +56,29 @@ namespace ApiControleFinanceiro.Migrations
                         .HasColumnName("data")
                         .HasColumnType("date");
 
+                    b.Property<long>("IdSubcategoria")
+                        .HasColumnType("bigint");
+
                     b.Property<double>("Valor")
                         .HasColumnName("valor")
                         .HasColumnType("double precision");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdLancamento");
+
+                    b.HasIndex("IdSubcategoria");
 
                     b.ToTable("lancamento");
                 });
 
             modelBuilder.Entity("ApiControleFinanceiro.Entities.SubcategoriaEntity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("IdSubcategoria")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("idsubcategoria")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("IdCategoria")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Nome")
@@ -74,7 +86,9 @@ namespace ApiControleFinanceiro.Migrations
                         .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
-                    b.HasKey("Id");
+                    b.HasKey("IdSubcategoria");
+
+                    b.HasIndex("IdCategoria");
 
                     b.ToTable("subcategoria");
                 });
@@ -83,7 +97,7 @@ namespace ApiControleFinanceiro.Migrations
                 {
                     b.HasOne("ApiControleFinanceiro.Entities.SubcategoriaEntity", "SubcategoriaEntity")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("IdSubcategoria")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -92,7 +106,7 @@ namespace ApiControleFinanceiro.Migrations
                 {
                     b.HasOne("ApiControleFinanceiro.Entities.CategoriaEntity", "CategoriaEntity")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("IdCategoria")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

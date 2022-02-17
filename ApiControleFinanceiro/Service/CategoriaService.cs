@@ -2,6 +2,7 @@
 using ApiControleFinanceiro.Entities;
 using ApiControleFinanceiro.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,9 +23,9 @@ namespace ApiControleFinanceiro.Service
             return await _dataContext.Categorias.ToListAsync();
         }
 
-        public async Task<CategoriaEntity> Get(long id)
+        public async Task<CategoriaEntity> Get(string nome)
         {
-            return await _dataContext.Categorias.FindAsync(id);
+            return await _dataContext.Categorias.FirstOrDefaultAsync(x => x.Nome == nome);
         }
 
         public async Task<CategoriaEntity> Create(CategoriaEntity categoria)
@@ -41,9 +42,9 @@ namespace ApiControleFinanceiro.Service
             await _dataContext.SaveChangesAsync();
         }
 
-        public async Task Delete(long id)
+        public async Task Delete(string nome)
         {
-            var categoriaDelete = await _dataContext.Categorias.FindAsync(id);
+            var categoriaDelete = await _dataContext.Categorias.FirstOrDefaultAsync(x => x.Nome == nome);
             _dataContext.Categorias.Remove(categoriaDelete);
             await _dataContext.SaveChangesAsync();
         }

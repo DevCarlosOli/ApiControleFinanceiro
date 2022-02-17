@@ -9,7 +9,7 @@ namespace ApiControleFinanceiro.Entities
     {
         [Key()]
         [Column("idlancamento")]
-        public long Id { get; set; }
+        public long IdLancamento { get; set; }
 
         [Column("valor")]
         public double Valor { get; set; }
@@ -17,11 +17,12 @@ namespace ApiControleFinanceiro.Entities
         [Column("data", TypeName = "date")]
         public DateTime Data { get; set; }
 
+        [ForeignKey("SubcategoriaEntity")]
+        public long IdSubcategoria { get; set; }
+        public virtual SubcategoriaEntity Subcategoria { get; set; }
+
         [Column("comentario")]
         [StringLength(500)]
-        public string Comentario { get; set; }
-
-        [ForeignKey(nameof(Id))]
-        public virtual SubcategoriaEntity SubcategoriaEntity { get; set; }
+        public string Comentario { get; set; }        
     }
 }

@@ -1,5 +1,7 @@
-﻿using ApiControleFinanceiro.Entities;
+﻿using ApiControleFinanceiro.DTO;
+using ApiControleFinanceiro.Entities;
 using ApiControleFinanceiro.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,9 +14,12 @@ namespace ApiControleFinanceiro.Controllers
     {
         private readonly ISubcategoriaRepository _subCategoriaRepository;
 
-        public SubcategoriaController(ISubcategoriaRepository subCategoriaRepository)
+        private readonly IMapper _mapeamento;
+
+        public SubcategoriaController(ISubcategoriaRepository subCategoriaRepository, IMapper mapeamento)
         {
             _subCategoriaRepository = subCategoriaRepository;
+            _mapeamento = mapeamento;
         }
 
         /// <summary>
@@ -66,7 +71,9 @@ namespace ApiControleFinanceiro.Controllers
         {
             var newSubcategoria = await _subCategoriaRepository.Create(subCategoria);
 
-            return Ok();
+            var subCategoriaDTO = _mapeamento.Map<SubcategoriaDTO>(newSubcategoria);
+
+            return Ok(subCategoriaDTO);
         }
 
         /// <summary>
@@ -83,12 +90,12 @@ namespace ApiControleFinanceiro.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<SubcategoriaEntity>> PutSubCategoria([FromRoute] long id, SubcategoriaEntity subCategoria)
         {
-            if (id != subCategoria.Id)
+            if (id != subCategoria.IdSubcategoria)
                 return BadRequest(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
 
             await _subCategoriaRepository.Update(subCategoria);
 
-            return CreatedAtAction(nameof(GetSubCategoria), new { id = subCategoria.Id }, subCategoria);
+            return CreatedAtAction(nameof(GetSubCategoria), new { id = subCategoria.IdSubcategoria }, subCategoria);
         }
 
         /// <summary>
@@ -109,7 +116,7 @@ namespace ApiControleFinanceiro.Controllers
             if (subCategoriaDelete == null)
                 return BadRequest(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
 
-            await _subCategoriaRepository.Delete(subCategoriaDelete.Id);
+            await _subCategoriaRepository.Delete(subCategoriaDelete.IdSubcategoria);
 
             return Ok();
         }

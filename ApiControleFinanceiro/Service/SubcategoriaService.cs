@@ -34,7 +34,7 @@ namespace ApiControleFinanceiro.Service
             await _dataContext.SaveChangesAsync();
 
             return subCategoria;
-        }       
+        }
 
         public async Task Update(SubcategoriaEntity subCategoria)
         {

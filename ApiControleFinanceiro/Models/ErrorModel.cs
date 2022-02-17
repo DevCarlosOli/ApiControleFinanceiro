@@ -5,6 +5,8 @@ namespace ApiControleFinanceiro.ApiControleFinanceiro.Domain.Models
 {
     public class ErrorModel
     {
+        public List<ErrorDetails> Errors { get; private set; }
+
         public ErrorModel()
         {
             Errors = new List<ErrorDetails>();
@@ -14,21 +16,18 @@ namespace ApiControleFinanceiro.ApiControleFinanceiro.Domain.Models
         {
             Errors = new List<ErrorDetails>();
             AddError(code, message);
-        }
-
-        public List<ErrorDetails> Errors { get; private set; }
+        }        
 
         public class ErrorDetails
         {
+            public string Code { get; private set; }
+            public string Message { get; private set; }
+
             public ErrorDetails(string code, string message)
             {
                 Code = code.ToString();
                 Message = message;
-            }
-
-            public string Code { get; private set; }
-
-            public string Message { get; private set; }
+            }            
         }
 
         public void AddError(string code, string message)

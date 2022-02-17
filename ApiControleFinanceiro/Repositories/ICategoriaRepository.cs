@@ -1,4 +1,5 @@
 ﻿using ApiControleFinanceiro.Entities;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,12 +9,12 @@ namespace ApiControleFinanceiro.Repositories
     {
         Task<IEnumerable<CategoriaEntity>> Get();
 
-        Task<CategoriaEntity> Get(long id);
+        Task<CategoriaEntity> Get(string nome);
 
         Task<CategoriaEntity> Create(CategoriaEntity categoria);
 
         Task Update(CategoriaEntity categoria);
 
-        Task Delete(long id);
+        Task Delete(string nome);
     }
 }

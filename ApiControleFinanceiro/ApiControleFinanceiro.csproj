@@ -5,23 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20220208193911_Iniciation.cs" />
-    <Compile Remove="Migrations\20220208193911_Iniciation.Designer.cs" />
-    <Compile Remove="Migrations\20220208194929_ApiControleFinanceiro.cs" />
-    <Compile Remove="Migrations\20220208194929_ApiControleFinanceiro.Designer.cs" />
-    <Compile Remove="Migrations\20220208212729_ApiControleFinanceiro.cs" />
-    <Compile Remove="Migrations\20220208212729_ApiControleFinanceiro.Designer.cs" />
-    <Compile Remove="Migrations\20220210180705_AjustandoCategoria.cs" />
-    <Compile Remove="Migrations\20220210180705_AjustandoCategoria.Designer.cs" />
-    <Compile Remove="Migrations\20220210191501_AjustandoCategoria02.cs" />
-    <Compile Remove="Migrations\20220210191501_AjustandoCategoria02.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Properties\launchSettings.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.18">
       <PrivateAssets>all</PrivateAssets>

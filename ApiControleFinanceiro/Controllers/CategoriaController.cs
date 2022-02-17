@@ -1,10 +1,7 @@
-﻿using ApiControleFinanceiro.Context;
-using ApiControleFinanceiro.Entities;
+﻿using ApiControleFinanceiro.Entities;
 using ApiControleFinanceiro.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ApiControleFinanceiro.Controllers
@@ -36,20 +33,20 @@ namespace ApiControleFinanceiro.Controllers
         /// <summary>
         /// Obter uma categoria específica por ID.
         /// </summary>
-        /// <param name="id">ID da categoria.</param>
+        /// <param name="nome">Nome da categoria.</param>
         /// <response code="200">A categoria foi obtido com sucesso.</response>
         /// <response code="404">Não foi encontrada categoria com ID especificado.</response>
         /// <response code="500">Ocorreu um erro ao obter a categoria.</response>
-        [HttpGet("{id}")]
+        [HttpGet("{nome}")]
         [ProducesResponseType(typeof(List<CategoriaEntity>), 200)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<CategoriaEntity>> GetCategoria(long id)
+        public async Task<ActionResult<CategoriaEntity>> GetCategoria(string nome)
         {
-            var pegarCategoria = await _categoriaRepository.Get(id);
+            var pegarCategoria = await _categoriaRepository.Get(nome);
 
             if (pegarCategoria == null)
             {
-                return BadRequest(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
+                return NotFound(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
             }
             return Ok(pegarCategoria);
         }
@@ -69,7 +66,7 @@ namespace ApiControleFinanceiro.Controllers
         {
             var newCategoria = await _categoriaRepository.Create(categoria);
 
-            return Ok();
+            return Ok(newCategoria);
         }
 
         /// <summary>
@@ -81,38 +78,38 @@ namespace ApiControleFinanceiro.Controllers
         /// <response code="404">Não foi encontrado a categoria com ID especificado.</response>
         /// <response code="500">Ocorreu um erro ao alterar a categoria.</response>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(List<CategoriaEntity>), 201)]
+        [ProducesResponseType(typeof(List<SubcategoriaEntity>), 201)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<CategoriaEntity>> PutCategoria([FromRoute]long id, CategoriaEntity categoria)
+        public async Task<ActionResult<CategoriaEntity>> PutCategoria([FromRoute] long id, CategoriaEntity categoria)
         {
-            if (id != categoria.Id)
-                return BadRequest(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
+            if (id != categoria.IdCategoria)
+                return NotFound(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
 
             await _categoriaRepository.Update(categoria);
 
-            return CreatedAtAction(nameof(GetCategoria), new { id = categoria.Id }, categoria);
+            return CreatedAtAction(nameof(GetCategoria), new { id = categoria.IdCategoria }, categoria);
         }
 
         /// <summary>
         /// Deletar categoria.
         /// </summary>
-        /// <param name="id">ID da categoria.</param>
+        /// <param name="nome">Nome da categoria.</param>
         /// <response code="200">A categoria foi deletada com sucesso.</response>
-        /// <response code="404">Não foi encontrado categoria com ID especificado.</response>
+        /// <response code="404">Não foi encontrado categoria com nome especificado.</response>
         /// <response code="500">Ocorreu um erro ao deletar a categoria.</response>
-        [HttpDelete("{id}")]
+        [HttpDelete("{nome}")]
         [ProducesResponseType(typeof(List<CategoriaEntity>), 200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<CategoriaEntity>> DeleteCategoria(long id)
+        public async Task<ActionResult<CategoriaEntity>> DeleteCategoria(string nome)
         {
-            var categoriaDelete = await _categoriaRepository.Get(id);
+            var categoriaDelete = await _categoriaRepository.Get(nome);
 
             if (categoriaDelete == null)
-                return BadRequest(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
+                return NotFound(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
 
-            await _categoriaRepository.Delete(categoriaDelete.Id);
+            await _categoriaRepository.Delete(categoriaDelete.Nome);
 
             return Ok();
         }
