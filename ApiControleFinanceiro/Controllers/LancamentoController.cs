@@ -85,12 +85,12 @@ namespace ApiControleFinanceiro.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<LancamentoEntity>> PutSubCategoria([FromRoute] long id, LancamentoEntity lancamento)
         {
-            if (id != lancamento.IdLancamento)
+            if (id != lancamento.Id)
                 return BadRequest(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
 
             await _lancamentoRepository.Update(lancamento);
 
-            return CreatedAtAction(nameof(GetSubCategoria), new { id = lancamento.IdLancamento }, lancamento);
+            return CreatedAtAction(nameof(GetSubCategoria), new { id = lancamento.Id }, lancamento);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace ApiControleFinanceiro.Controllers
             if (lancamentoDelete == null)
                 return BadRequest(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
 
-            await _lancamentoRepository.Delete(lancamentoDelete.IdLancamento);
+            await _lancamentoRepository.Delete(lancamentoDelete.Id);
 
             return Ok();
         }

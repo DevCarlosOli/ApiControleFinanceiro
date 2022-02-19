@@ -5,6 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20220218002908_MigracaoAjuste.cs" />
+    <Compile Remove="Migrations\20220218002908_MigracaoAjuste.Designer.cs" />
+    <Compile Remove="Migrations\20220218184113_MiddleMigration.cs" />
+    <Compile Remove="Migrations\20220218184113_MiddleMigration.Designer.cs" />
+    <Compile Remove="Migrations\20220218184850_MiddleMigration.cs" />
+    <Compile Remove="Migrations\20220218184850_MiddleMigration.Designer.cs" />
+    <Compile Remove="Migrations\20220218185242_MiddleMigration.cs" />
+    <Compile Remove="Migrations\20220218185242_MiddleMigration.Designer.cs" />
+    <Compile Remove="Migrations\20220218185756_MiddleMigration.cs" />
+    <Compile Remove="Migrations\20220218185756_MiddleMigration.Designer.cs" />
+    <Compile Remove="Migrations\20220218191129_MiddleMigration.cs" />
+    <Compile Remove="Migrations\20220218191129_MiddleMigration.Designer.cs" />
+    <Compile Remove="Migrations\20220218202805_MiddleMigration.cs" />
+    <Compile Remove="Migrations\20220218202805_MiddleMigration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Properties\launchSettings.json" />
   </ItemGroup>
 
@@ -22,6 +39,11 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.18" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
     <PropertyGroup>

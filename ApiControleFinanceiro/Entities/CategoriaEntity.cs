@@ -11,7 +11,7 @@ namespace ApiControleFinanceiro.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("idcategoria")]
-        public long IdCategoria { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [MaxLength(30, ErrorMessage = "Este campo deve ter de 3 a 30 caracteres")]

@@ -31,6 +31,7 @@ namespace ApiControleFinanceiro.Service
         public async Task<SubcategoriaEntity> Create(SubcategoriaEntity subCategoria)
         {
             _dataContext.Subcategorias.Add(subCategoria);
+
             await _dataContext.SaveChangesAsync();
 
             return subCategoria;

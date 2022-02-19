@@ -66,6 +66,9 @@ namespace ApiControleFinanceiro.Controllers
         {
             var newCategoria = await _categoriaRepository.Create(categoria);
 
+            if (categoria == newCategoria)
+                return BadRequest(new { code = "invalid_requisition", message = "O modelo de categoria enviado é inválido." });
+
             return Ok(newCategoria);
         }
 
@@ -83,12 +86,12 @@ namespace ApiControleFinanceiro.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<CategoriaEntity>> PutCategoria([FromRoute] long id, CategoriaEntity categoria)
         {
-            if (id != categoria.IdCategoria)
+            if (id != categoria.Id)
                 return NotFound(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
 
             await _categoriaRepository.Update(categoria);
 
-            return CreatedAtAction(nameof(GetCategoria), new { id = categoria.IdCategoria }, categoria);
+            return CreatedAtAction(nameof(GetCategoria), new { id = categoria.Id }, categoria);
         }
 
         /// <summary>

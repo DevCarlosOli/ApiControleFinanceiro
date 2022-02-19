@@ -1,5 +1,4 @@
-﻿using ApiControleFinanceiro.DTO;
-using ApiControleFinanceiro.Entities;
+﻿using ApiControleFinanceiro.Entities;
 using ApiControleFinanceiro.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -51,7 +50,7 @@ namespace ApiControleFinanceiro.Controllers
 
             if (pegarSubcategoria == null)
             {
-                return BadRequest(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
+                return NotFound(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
             }
             return Ok(pegarSubcategoria);
         }
@@ -71,9 +70,7 @@ namespace ApiControleFinanceiro.Controllers
         {
             var newSubcategoria = await _subCategoriaRepository.Create(subCategoria);
 
-            var subCategoriaDTO = _mapeamento.Map<SubcategoriaDTO>(newSubcategoria);
-
-            return Ok(subCategoriaDTO);
+            return Ok(newSubcategoria);
         }
 
         /// <summary>
@@ -90,12 +87,12 @@ namespace ApiControleFinanceiro.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<SubcategoriaEntity>> PutSubCategoria([FromRoute] long id, SubcategoriaEntity subCategoria)
         {
-            if (id != subCategoria.IdSubcategoria)
+            if (id != subCategoria.Id)
                 return BadRequest(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
 
             await _subCategoriaRepository.Update(subCategoria);
 
-            return CreatedAtAction(nameof(GetSubCategoria), new { id = subCategoria.IdSubcategoria }, subCategoria);
+            return CreatedAtAction(nameof(GetSubCategoria), new { id = subCategoria.Id }, subCategoria);
         }
 
         /// <summary>
@@ -116,7 +113,7 @@ namespace ApiControleFinanceiro.Controllers
             if (subCategoriaDelete == null)
                 return BadRequest(new { code = "page_off", message = "Não foi encontrado a categoria com ID especificado." });
 
-            await _subCategoriaRepository.Delete(subCategoriaDelete.IdSubcategoria);
+            await _subCategoriaRepository.Delete(subCategoriaDelete.Id);
 
             return Ok();
         }

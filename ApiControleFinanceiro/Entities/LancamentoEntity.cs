@@ -7,22 +7,28 @@ namespace ApiControleFinanceiro.Entities
     [Table("lancamento")]
     public class LancamentoEntity
     {
-        [Key()]
+        [Key]
         [Column("idlancamento")]
-        public long IdLancamento { get; set; }
+        public long Id { get; set; }
 
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [Range(1, double.MaxValue, ErrorMessage = "Campo obrigatório")]
         [Column("valor")]
-        public double Valor { get; set; }
+        public decimal Valor { get; set; }
 
         [Column("data", TypeName = "date")]
-        public DateTime Data { get; set; }
+        public DateTime Data { get; set; } = DateTime.UtcNow;
 
-        [ForeignKey("SubcategoriaEntity")]
-        public long IdSubcategoria { get; set; }
-        public virtual SubcategoriaEntity Subcategoria { get; set; }
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [Range(1, int.MaxValue, ErrorMessage = "Campo obrigatório")]
+        public long SubcategoriaId { get; set; }
+        public SubcategoriaEntity Subcategoria { get; set; }
+
+        [NotMapped]
+        public CategoriaEntity Categoria { get; set; }
 
         [Column("comentario")]
-        [StringLength(500)]
+        [MaxLength(1024, ErrorMessage = "Este campo deve conter 1024 caracteres no máximo")]
         public string Comentario { get; set; }        
     }
 }

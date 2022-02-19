@@ -8,7 +8,7 @@ namespace ApiControleFinanceiro.Entities
     {
         [Key]
         [Column("idsubcategoria")]
-        public long IdSubcategoria { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [Column("nome")]
@@ -16,7 +16,12 @@ namespace ApiControleFinanceiro.Entities
         [MinLength(3, ErrorMessage = "Este campo deve ter de 3 a 30 caracteres")]
         public string Nome { get; set; }
 
-        [ForeignKey("CategoriaEntity")]
-        public long IdCategoria { get; set; }
+
+        [Required(ErrorMessage = "Este campo é obrigatório!")]
+        [Range(1, int.MaxValue, ErrorMessage = "Campo obrigatório")]
+        [ForeignKey("Id")]
+        public long CategoriaId { get; set; }
+
+        public CategoriaEntity Categoria { get; set; }
     }
 }
